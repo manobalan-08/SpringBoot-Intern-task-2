@@ -5,47 +5,61 @@ import com.example.springbootfirst.service.HelloWorldService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @RestController
-
+@RequestMapping("/employee")
 public class HelloWorldController {
 
 
     @Autowired
     HelloWorldService hws;
-   /* @GetMapping("/")
-    public String hello(){
-        return hws.helloWorld();
-    }
-    @PostMapping("/")
-    public String postMethod(){
-        return hws.postMethod();
+    @GetMapping
+    public List<Employee> getEmpMethod(){
+        return hws.getEmpMethod();
     }
 
-    @PutMapping("/")
-    public String putMethod(){
-        return hws.putMethod();
+    @GetMapping("/{empID}")
+    public Employee getEmployeeById(@PathVariable int empID)
+    {
+        return hws.getEmployeeById(empID);
+    }
+    @PostMapping
+    public String postMethod(@RequestBody Employee employee){
+     //   Employee employee= new Employee(5,"Akash","Solutions Architect");
+        return hws.postMethod(employee);
+    }
+
+    @PutMapping("/{empID}")
+    public String putMethod(@PathVariable int empID, @RequestBody Employee employee)
+    {
+        return hws.updateRecords(empID, employee);
     }
 
 
-    @DeleteMapping("/")
+
+    @DeleteMapping("/{empID}")
+    public String deleteEmployeeById(@PathVariable int empID){
+        return hws.deleteEmployeeById(empID);
+    }
+
+
+   /* @DeleteMapping("/")
     public String deleteMethod(){
         return hws.deleteMethod();
     }
-*/
 
-    @GetMapping("/employee")
+
+   @GetMapping("/employee")
     public List<Employee> getEmp(){
         return hws.getEmpMethod();
     }
 
-    @PostMapping("/employee")
+   @PostMapping("/employee")
     public List<Employee> postEmp(){
         return hws.postEmpMethod();
-    }
+    }*/
+
 
 
 }
